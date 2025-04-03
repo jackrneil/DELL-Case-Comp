@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dell Dashboard Launcher</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .launcher {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .launch-button {
+            background-color: #0076CE;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 15px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .launch-button:hover {
+            background-color: #005a99;
+        }
+        .status {
+            margin-top: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="launcher">
+        <img src="public/dell-logo.svg" alt="Dell Logo" class="logo">
+        <h1>Dell Interactive Prediction Model</h1>
+        <button class="launch-button" id="launchButton">Launch Dashboard</button>
+        <p class="status" id="status"></p>
+    </div>
+
+    <script>
+        document.getElementById('launchButton').addEventListener('click', function() {
+            const statusElement = document.getElementById('status');
+            statusElement.textContent = "Starting development server...";
+            
+            // Try to open the app directly if it's potentially already running
+            window.open('http://localhost:3000', '_blank');
+            
+            // Alternatively, you could use this to start the development server
+            // but it requires browser support for this API and proper permissions
+            try {
+                const process = window.require('child_process').spawn('npm', ['start'], {
+                    cwd: './',
+                    shell: true,
+                    detached: true
+                });
+                
+                process.on('error', function(err) {
+                    statusElement.textContent = "Error starting server. Please run 'npm start' manually in the project folder.";
+                    console.error('Failed to start server:', err);
+                });
+                
+                process.stdout.on('data', function(data) {
+                    console.log(data.toString());
+                    if(data.toString().includes('Compiled successfully')) {
+                        statusElement.textContent = "Development server started! Opening dashboard...";
+                        setTimeout(() => {
+                            window.open('http://localhost:3000', '_blank');
+                        }, 1000);
+                    }
+                });
+            } catch (error) {
+                console.error("Can't start server from browser:", error);
+                statusElement.textContent = "Please run 'npm start' in the project folder to start the server.";
+            }
+        });
+    </script>
+</body>
+</html> 

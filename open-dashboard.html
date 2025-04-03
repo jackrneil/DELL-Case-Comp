@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Open Dell Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #0076CE;
+        }
+        .button {
+            display: inline-block;
+            background-color: #0076CE;
+            color: white;
+            font-size: 18px;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+        .button:hover {
+            background-color: #005a99;
+        }
+        .instructions {
+            max-width: 600px;
+            margin: 30px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+        .step {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dell Dashboard Direct Launcher</h1>
+    
+    <div class="instructions">
+        <div class="step">1. First, start the dashboard server by opening Command Prompt and running these commands:</div>
+        <pre>cd C:\Users\jackr\Downloads\Dell-Dashboard-Project
+npm install
+npm start</pre>
+        
+        <div class="step">2. Wait about 30 seconds for the server to start</div>
+        
+        <div class="step">3. Then click the button below to open the dashboard in your browser:</div>
+    </div>
+    
+    <a href="http://localhost:3000" class="button" target="_blank">Open Dashboard</a>
+</body>
+</html> 
